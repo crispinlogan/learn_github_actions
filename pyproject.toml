@@ -25,7 +25,7 @@ line_length = 88
 
 [tool.poetry]
 name = "learn-github-actions"
-version = "0.1.5"
+version = "0.1.6"
 description = "Throwaway project to learn github actions"
 authors = ["Crispin Logan <crispin@humn.ai>"]
 readme = "README.md"
