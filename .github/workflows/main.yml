@@ -40,6 +40,7 @@ jobs:
           ls
           git config --global user.email "you@example.com"
           git config --global user.name "Your Name"
+          git branch -a
           pip install bump2version==1.0.1
           bump2version patch
           git push
