@@ -46,7 +46,8 @@ jobs:
           pip install bump2version==1.0.1
           bump2version patch
           git push
-          git push origin v0.1.1
+          version=$(git log --oneline | head -n1 |  awk '{print $NF}')
+          git push origin v$version
       # - uses: khan/pull-request-comment-trigger@v1.1.0
       #   id: check
       #   with:
