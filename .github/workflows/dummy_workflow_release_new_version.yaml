@@ -1,0 +1,25 @@
+name: dummy_workflow_to_release_new_versions_via_pr_comment
+run-name: ${{ github.actor }} is trying to automate release via PR comments
+on:
+  pull_request:
+    types: [opened]
+  release_new_version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10.3'
+      - uses: khan/pull-request-comment-trigger@v1.1.0
+        id: check
+        with:
+          trigger: 'release version patch'
+          reaction: rocket
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+      - run: pwd
+      - run: ls
+      - run: pip install bump2version==1.0.1
+      - run: bump2version patch # get increment type automatically
+      - run: git push # will need creds
+      - run: git push origin v0.1.1 # get tag name automatically
