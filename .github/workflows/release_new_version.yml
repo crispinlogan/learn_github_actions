@@ -1,4 +1,5 @@
 name: release_new_version
+run-name: Release new version of library
 on:
   issue_comment:
     types: [created, edited, deleted]
