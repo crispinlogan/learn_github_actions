@@ -1,0 +1,30 @@
+name: release_new_version
+on:
+  issue_comment:
+    types: [created, edited, deleted]
+  # # Allows you to run this workflow manually from the Actions tab
+  # workflow_dispatch:
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called 'release_patch_version'
+  release_patch_version:
+    # only for PR comments that contain 'release patch version'
+    if: ${{ github.event.issue.pull_request }} && contains(github.event.comment.body, 'release patch version')   # check the comment if it contains the keywords
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: release_branch
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10.3'
+      - name: Releases a new patch version
+        run: |
+          git config --global user.email "github_bot"
+          git config --global user.name "Github Bot"
+          git branch -a
+          pip install bump2version==1.0.1
+          bump2version patch
+          git push
+          version=$(git log --oneline | head -n1 |  awk '{print $NF}')
+          git push origin v$version
