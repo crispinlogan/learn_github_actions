@@ -30,12 +30,14 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Releases a new version
-        run: |
+        - uses: actions/setup-python@v4
+              with:
+                python-version: '3.10.3'
+        - run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.10.3'
+          pwd
+          ls
       # - uses: khan/pull-request-comment-trigger@v1.1.0
       #   id: check
       #   with:
@@ -43,8 +45,6 @@ jobs:
       #     reaction: rocket
       #   env:
       #     GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-      - run: pwd
-      - run: ls
       # - run: pip install bump2version==1.0.1
       # - run: bump2version patch # get increment type automatically
       # - run: git push # will need creds
