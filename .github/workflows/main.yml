@@ -30,10 +30,10 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Releases a new version
-        - uses: actions/setup-python@v4
-              with:
-                python-version: '3.10.3'
-        - run: |
+        uses: actions/setup-python@v4
+            with:
+              python-version: '3.10.3'
+        run: |
           echo Add other actions to build,
           echo test, and deploy your project.
           pwd
