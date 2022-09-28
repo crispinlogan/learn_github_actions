@@ -1,0 +1,16 @@
+name: dummy_workflow_to_learn_github_actions
+run-name: ${{ github.actor }} is learning GitHub Actions
+on: [push]
+jobs:
+  run_pre_commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      # - uses: actions/setup-python@v4
+      #   with:
+      #     python-version: '3.10.3'
+      - run: pwd
+      - run: ls
+      # - run: pip install pre-commit==2.20.0
+      # - run: pre-commit install
+      # - run: pre-commit run --all-files

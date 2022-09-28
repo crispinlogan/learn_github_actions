@@ -1,0 +1,53 @@
+name: pull request comment
+on:
+  issue_comment:
+    types: [created, edited, deleted]
+jobs:
+  job01:
+    if: contains(github.event.comment.html_url, '/pull/')    # check if the comments come from pull request, exclude those from issue.
+    runs-on: [ubuntu-latest]
+    steps:
+      -
+        name: say hello
+        if: contains(github.event.comment.body, '/support')   # check the comment if it contains the keywords
+        run: echo say hello
+      -
+        name: test
+        if: contains(github.event.comment.body, '/test')  # check the comment if it contains the keywords
+        run: echo test
+# name: dummy_workflow_to_release_new_versions_via_pr_comment
+# run-name: ${{ github.actor }} is trying to automate release via PR comments
+# on:
+#   issue_comment:
+#     types: [created, edited, deleted]
+# jobs:
+#   release_new_version:
+#   if: contains(github.event.comment.html_url, '/pull/')    # check if the comments come from pull request, exclude those from issue.
+#   # if: ${{ github.event.issue.pull_request }}    # <--- The other way to compare if it's on a PR or on an issue
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#       - uses: actions/setup-python@v4
+#         with:
+#           python-version: '3.10.3'
+#       # - uses: khan/pull-request-comment-trigger@v1.1.0
+#       #   id: check
+#       #   with:
+#       #     trigger: 'release version patch'
+#       #     reaction: rocket
+#       #   env:
+#       #     GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+#       # - run: pwd
+#       # - run: ls
+#       # - run: pip install bump2version==1.0.1
+#       # - run: bump2version patch # get increment type automatically
+#       # - run: git push # will need creds
+#       # - run: git push origin v0.1.1 # get tag name automatically
+#       - name: say hello
+#         if: contains(github.event.comment.body, '/support')   # check the comment if it contains the keywords
+#         run: |
+#         echo say hello
+#       - name: test
+#         if: contains(github.event.comment.body, '/test')  # check the comment if it contains the keywords
+#         run: |
+#         echo test
