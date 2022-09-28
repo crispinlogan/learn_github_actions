@@ -3,6 +3,7 @@ run-name: ${{ github.actor }} is trying to automate release via PR comments
 on:
   pull_request:
     types: [opened]
+jobs:
   release_new_version:
     runs-on: ubuntu-latest
     steps:
