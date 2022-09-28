@@ -40,8 +40,8 @@ jobs:
           ls
           pip install bump2version==1.0.1
           bump2version patch
-    # git push # will need creds
-    # git push origin v0.1.1 # get tag name automatically
+          git push # will need creds
+          git push origin v0.1.1 # get tag name automatically
       # - uses: khan/pull-request-comment-trigger@v1.1.0
       #   id: check
       #   with:
