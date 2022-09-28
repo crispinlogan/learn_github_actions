@@ -15,7 +15,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # only for PR comments
-    if: ${{ github.event.issue.pull_request }}
+    if: ${{ github.event.issue.pull_request }} && contains(github.event.comment.body, 'release patch version')   # check the comment if it contains the keywords
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -23,6 +23,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+        with:
+          ref: testt
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10.3'
@@ -32,7 +34,6 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Releases a new version
-        if: contains(github.event.comment.body, 'TEST')   # check the comment if it contains the keywords
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
@@ -40,10 +41,12 @@ jobs:
           ls
           git config --global user.email "you@example.com"
           git config --global user.name "Your Name"
+          git branch -a
           pip install bump2version==1.0.1
           bump2version patch
           git push
-          git push origin v0.1.1
+          version=$(git log --oneline | head -n1 |  awk '{print $NF}')
+          git push origin v$version
       # - uses: khan/pull-request-comment-trigger@v1.1.0
       #   id: check
       #   with:
