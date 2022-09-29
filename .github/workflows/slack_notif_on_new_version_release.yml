@@ -26,7 +26,7 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         uses: pullreminders/slack-action@master
         with:
-          args: '{\"channel\":\"C1234567890\",\"text\":\"Hello world\"}'
+          args: '{\"channel\":\"C044A5L19V4\",\"text\":\"Hello world\"}'
       # - name: Post to a Slack channel
       #   id: slack
       #   uses: slackapi/slack-github-action@v1.22.0
