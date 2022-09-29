@@ -51,22 +51,22 @@ jobs:
       #       }
       #   env:
       #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      # - name: Notifies Slack of new version release
-      #   run: |
-      #     git config --global user.email "github_bot"
-      #     git config --global user.name "Github Bot"
-      #     git branch -a
-      #     commit_message=$(git log --oneline | head -n1)
-      #     if [[ $commit_message == *"Bump version"* ]]; then
-      #       echo "It's there!"
-      #       version=$(git log --oneline | head -n1 |  awk '{print $NF}')
-      #       old_version=$(git log --oneline | head -n1 |  awk '{print $4}')
-      #       echo $version
-      #       echo $old_version
-      #       repo_name=${{ github.event.repository.name }}
-      #       echo $repo_name
-      #       tag_url=https://github.com/crispinlogan/$repo_name/releases/tag/$version
-      #       echo $tag_url
-      #       curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
-      #       curl -X POST -H 'Content-type: application/json' --data '{"text":"New release of $repo_name from $old_version to $version"}' https://hooks.slack.com/services/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
-      #     fi
+      - name: Notifies Slack of new version release
+        run: |
+          git config --global user.email "github_bot"
+          git config --global user.name "Github Bot"
+          git branch -a
+          commit_message=$(git log --oneline | head -n1)
+          if [[ $commit_message == *"Bump version"* ]]; then
+            echo "It's there!"
+            version=$(git log --oneline | head -n1 |  awk '{print $NF}')
+            old_version=$(git log --oneline | head -n1 |  awk '{print $4}')
+            echo $version
+            echo $old_version
+            repo_name=${{ github.event.repository.name }}
+            echo $repo_name
+            tag_url=https://github.com/crispinlogan/$repo_name/releases/tag/$version
+            echo $tag_url
+            curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
+            curl -X POST -H 'Content-type: application/json' --data '{"text":"New release of $repo_name from $old_version to $version"}' https://hooks.slack.com/services/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
+          fi
