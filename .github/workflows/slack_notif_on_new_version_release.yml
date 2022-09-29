@@ -79,5 +79,5 @@ jobs:
         with:
           status: ${{ job.status }}
           channel: '#ds-library-release-test'
-          message: Build {{ env.GITHUB_REF_NAME }} branch Successfully
+          message: {{ github.event.head_commit.message }} on {{ env.GITHUB_REF_NAME }} branch Successfully
         if: contains(github.event.head_commit.message, 'hello')
