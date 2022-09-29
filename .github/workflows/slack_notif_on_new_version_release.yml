@@ -57,6 +57,7 @@ jobs:
           git config --global user.name "Github Bot"
           git branch -a
           commit_message=$(git log --oneline | head -n1)
+          commit_message='Bump version'
           if [[ $commit_message == *"Bump version"* ]]; then
             echo "It's there!"
             version=$(git log --oneline | head -n1 |  awk '{print $NF}')
