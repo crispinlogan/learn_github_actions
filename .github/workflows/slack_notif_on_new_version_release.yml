@@ -79,5 +79,5 @@ jobs:
         with:
           status: ${{ job.status }}
           channel: '#ds-library-release-test'
-          message: New version release for ${{ github.event.repository.name }} -> ${{ github.event.head_commit.message }} on branch {{ env.GITHUB_REF_NAME }}. Commit is ${{ github.server_url }}/${{ github.repository }}/commit/${{github.sha}}
+          message: New version release for ${{ github.event.repository.name }} -> ${{ github.event.head_commit.message }}. Commit is ${{ github.server_url }}/${{ github.repository }}/commit/${{github.sha}}. Commit by ${{github.actor}}
         if: contains(github.event.head_commit.message, 'Bump version')
