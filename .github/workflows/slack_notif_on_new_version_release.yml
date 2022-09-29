@@ -4,76 +4,14 @@ on: [push]
   # # Allows you to run this workflow manually from the Actions tab
   # workflow_dispatch:
 jobs:
-  # This workflow contains a single job called 'release_patch_version'
+  # This workflow contains a single job called 'notify_slack'
   notify_slack:
     # only for PR comments that contain 'release patch version'
-    # if: ${{ github.event.issue.pull_request }} && contains(github.event.comment.body, 'release patch version')   # check the comment if it contains the keywords
     runs-on: ubuntu-latest
     env:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
       - uses: actions/checkout@v3
-        # with:
-        #   ref: release_branch
-      # - uses: actions/setup-python@v4
-      #   with:
-      #     python-version: '3.10.3'
-      # - name: Send GitHub Action trigger data to Slack workflow
-      #   id: slack
-      #   uses: slackapi/slack-github-action@v1.22.0
-      #   env:
-      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      # - name: Notify slack
-      #   env:
-      #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      #   uses: pullreminders/slack-action@master
-      #   with:
-      #     args: '{\"channel\":\"C044A5L19V4\",\"text\":\"Hello world\"}'
-      # - name: Post to a Slack channel
-      #   id: slack
-      #   uses: slackapi/slack-github-action@v1.22.0
-      #   with:
-      #     # Slack channel id, channel name, or user id to post message.
-      #     # See also: https://api.slack.com/methods/chat.postMessage#channels
-      #     # You can pass in multiple channels to post to by providing a comma-delimited list of channel IDs.
-      #     channel-id: 'C044A5L19V4'
-      #     # For posting a simple plain text message
-      #     slack-message: "GitHub build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
-      #   env:
-      #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      # - name: Send custom JSON data to Slack workflow
-      #   id: slack
-      #   uses: slackapi/slack-github-action@v1.22.0
-      #   with:
-      #     # This data can be any valid JSON from a previous step in the GitHub Action
-      #     payload: |
-      #       {
-      #         "key": "value",
-      #         "foo": "bar"
-      #       }
-      #   env:
-      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      # - name: Notifies Slack of new version release
-      #   run: |
-      #     git config --global user.email "github_bot"
-      #     git config --global user.name "Github Bot"
-      #     git branch -a
-      #     commit_message=$(git log --oneline | head -n1)
-      #     commit_message='Bump version'
-      #     if [[ $commit_message == *"Bump version"* ]]; then
-      #       echo "It's there!"
-      #       version=$(git log --oneline | head -n1 |  awk '{print $NF}')
-      #       old_version=$(git log --oneline | head -n1 |  awk '{print $4}')
-      #       echo $version
-      #       echo $old_version
-      #       repo_name=${{ github.event.repository.name }}
-      #       echo $repo_name
-      #       tag_url=https://github.com/crispinlogan/$repo_name/releases/tag/$version
-      #       echo $tag_url
-      #       curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/T7MNJ7D1D/B044LFST27N/${{ secrets.SLACK_WEBHOOK_URL }}
-      #       curl -X POST -H 'Content-type: application/json' --data '{"text":"Testing"}' https://hooks.slack.com/services/T7MNJ7D1D/B044LFST27N/${{ secrets.SLACK_WEBHOOK_URL }}
-      #       curl -X POST -H 'Content-type: application/json' --data '{"text":"New release of $repo_name from $old_version to $version"}' https://hooks.slack.com/services/T7MNJ7D1D/B044LFST27N/${{ secrets.SLACK_WEBHOOK_URL }}
-      #     fi
       - name: Slack Notification
         uses: act10ns/slack@v1
         with:
