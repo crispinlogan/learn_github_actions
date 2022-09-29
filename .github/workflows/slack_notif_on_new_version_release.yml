@@ -9,6 +9,8 @@ jobs:
     # only for PR comments that contain 'release patch version'
     # if: ${{ github.event.issue.pull_request }} && contains(github.event.comment.body, 'release patch version')   # check the comment if it contains the keywords
     runs-on: ubuntu-latest
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
       - uses: actions/checkout@v3
         # with:
