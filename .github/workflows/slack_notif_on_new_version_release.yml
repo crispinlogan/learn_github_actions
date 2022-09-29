@@ -68,6 +68,6 @@ jobs:
             echo $repo_name
             tag_url=https://github.com/crispinlogan/$repo_name/releases/tag/$version
             echo $tag_url
-            curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
-            curl -X POST -H 'Content-type: application/json' --data '{"text":"New release of $repo_name from $old_version to $version"}' https://hooks.slack.com/services/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
+            curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
+            curl -X POST -H 'Content-type: application/json' --data '{"text":"New release of $repo_name from $old_version to $version"}' https://hooks.slack.com/services/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
           fi
