@@ -21,12 +21,12 @@ jobs:
       #   uses: slackapi/slack-github-action@v1.22.0
       #   env:
       #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      - name: Notify slack
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-        uses: pullreminders/slack-action@master
-        with:
-          args: '{\"channel\":\"C044A5L19V4\",\"text\":\"Hello world\"}'
+      # - name: Notify slack
+      #   env:
+      #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      #   uses: pullreminders/slack-action@master
+      #   with:
+      #     args: '{\"channel\":\"C044A5L19V4\",\"text\":\"Hello world\"}'
       # - name: Post to a Slack channel
       #   id: slack
       #   uses: slackapi/slack-github-action@v1.22.0
@@ -51,24 +51,31 @@ jobs:
       #       }
       #   env:
       #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      - name: Notifies Slack of new version release
-        run: |
-          git config --global user.email "github_bot"
-          git config --global user.name "Github Bot"
-          git branch -a
-          commit_message=$(git log --oneline | head -n1)
-          commit_message='Bump version'
-          if [[ $commit_message == *"Bump version"* ]]; then
-            echo "It's there!"
-            version=$(git log --oneline | head -n1 |  awk '{print $NF}')
-            old_version=$(git log --oneline | head -n1 |  awk '{print $4}')
-            echo $version
-            echo $old_version
-            repo_name=${{ github.event.repository.name }}
-            echo $repo_name
-            tag_url=https://github.com/crispinlogan/$repo_name/releases/tag/$version
-            echo $tag_url
-            curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/T7MNJ7D1D/B044LFST27N/${{ secrets.SLACK_WEBHOOK_URL }}
-            curl -X POST -H 'Content-type: application/json' --data '{"text":"Testing"}' https://hooks.slack.com/services/T7MNJ7D1D/B044LFST27N/${{ secrets.SLACK_WEBHOOK_URL }}
-            curl -X POST -H 'Content-type: application/json' --data '{"text":"New release of $repo_name from $old_version to $version"}' https://hooks.slack.com/services/T7MNJ7D1D/B044LFST27N/${{ secrets.SLACK_WEBHOOK_URL }}
-          fi
+      # - name: Notifies Slack of new version release
+      #   run: |
+      #     git config --global user.email "github_bot"
+      #     git config --global user.name "Github Bot"
+      #     git branch -a
+      #     commit_message=$(git log --oneline | head -n1)
+      #     commit_message='Bump version'
+      #     if [[ $commit_message == *"Bump version"* ]]; then
+      #       echo "It's there!"
+      #       version=$(git log --oneline | head -n1 |  awk '{print $NF}')
+      #       old_version=$(git log --oneline | head -n1 |  awk '{print $4}')
+      #       echo $version
+      #       echo $old_version
+      #       repo_name=${{ github.event.repository.name }}
+      #       echo $repo_name
+      #       tag_url=https://github.com/crispinlogan/$repo_name/releases/tag/$version
+      #       echo $tag_url
+      #       curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/T7MNJ7D1D/B044LFST27N/${{ secrets.SLACK_WEBHOOK_URL }}
+      #       curl -X POST -H 'Content-type: application/json' --data '{"text":"Testing"}' https://hooks.slack.com/services/T7MNJ7D1D/B044LFST27N/${{ secrets.SLACK_WEBHOOK_URL }}
+      #       curl -X POST -H 'Content-type: application/json' --data '{"text":"New release of $repo_name from $old_version to $version"}' https://hooks.slack.com/services/T7MNJ7D1D/B044LFST27N/${{ secrets.SLACK_WEBHOOK_URL }}
+      #     fi
+      - name: Slack Notification
+        uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          channel: '#ds-library-release-test'
+          message: Build {{ env.GITHUB_REF_NAME }} branch Successfully
+        if: always()
