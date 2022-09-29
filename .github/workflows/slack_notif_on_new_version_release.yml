@@ -16,6 +16,23 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10.3'
+      - name: Send GitHub Action trigger data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.22.0
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: Send custom JSON data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.22.0
+        with:
+          # This data can be any valid JSON from a previous step in the GitHub Action
+          payload: |
+            {
+              "key": "value",
+              "foo": "bar"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: Notifies Slack of new version release
         run: |
           git config --global user.email "github_bot"
@@ -25,12 +42,12 @@ jobs:
           if [[ $commit_message == *"Bump version"* ]]; then
             echo "It's there!"
             version=$(git log --oneline | head -n1 |  awk '{print $NF}')
-            old_version=$(git log --oneline | head -n1 |  awk '{print $3}')
+            old_version=$(git log --oneline | head -n1 |  awk '{print $4}')
             echo $version
             echo $old_version
             repo_name=${{ github.event.repository.name }}
             echo $repo_name
-            tag_url=https://github.com/humn-ai/$repo_name/releases/tag/$version
+            tag_url=https://github.com/crispinlogan/$repo_name/releases/tag/$version
             echo $tag_url
             curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
             curl -X POST -H 'Content-type: application/json' --data '{"text":"New release of $repo_name from $old_version to $version"}' https://hooks.slack.com/services/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
