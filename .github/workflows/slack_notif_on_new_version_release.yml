@@ -19,3 +19,5 @@ jobs:
           message: New version release for ${{ github.event.repository.name }} -> ${{ github.event.head_commit.message }}. Commit is ${{ github.server_url }}/${{ github.repository }}/commit/${{github.sha}}. Commit by ${{github.actor}}
         # only for commit that contain 'Bump version' in them
         if: contains(github.event.head_commit.message, 'Bump version')
+
+
