@@ -12,12 +12,12 @@ def test_add():
     assert add(0, 15) == 15
 
 
-def test_add_lists():
-    assert add_lists([3, 1], [1, 5]) == [4, 6]
-    assert add_lists([], []) == []
-    assert add_lists([1], [1]) == [2]
+class TestAddList:
+    def test_add_lists(self):
+        assert add_lists([3, 1], [1, 5]) == [4, 6]
+        assert add_lists([], []) == []
+        assert add_lists([1], [1]) == [2]
 
-
-def test_add_lists_fails():
-    with pytest.raises(ValueError):
-        add_lists([1, 2], [1])
+    def test_add_lists_fails(self):
+        with pytest.raises(ValueError):
+            add_lists([1, 2], [1])
