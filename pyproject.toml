@@ -23,6 +23,16 @@ use_parentheses = true
 ensure_newline_before_comments = true
 line_length = 88
 
+[tool.coverage.paths]
+source = ["learn_github_actions"]
+
+[tool.coverage.run]
+branch = true
+source = ["learn_github_actions"]
+
+[tool.coverage.report]
+show_missing = true
+
 [tool.poetry]
 name = "learn-github-actions"
 version = "2.0.0"
