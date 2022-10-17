@@ -15,3 +15,5 @@ I made a few workflows:
 - slack_notif_on_new_version_release.yml - posts to Slack channel on a Bump version commit (which signals new version release). Useful videos were https://www.youtube.com/watch?v=hzIub2noFw8 and https://www.youtube.com/watch?v=1n-jHHNSoTw - make sure to  /invite your_slack_app_name in the channel
 
 I also added in some tests with pytest, you can run `pytest --cov` in the root of the repo to run the tests.
+I also added the tests to a noxfile, so you can just run `nox` and the tests within the noxfile will run (only pytest tets for now).
+I also added the nox command to a github actions workflow - tests.yml, so it runs the tests on every push to github.
