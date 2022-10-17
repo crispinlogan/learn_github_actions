@@ -3,20 +3,20 @@ import pytest
 from learn_github_actions.add import add, add_lists
 
 
-def test_add():
-    assert add(1, 2) == 3
-    assert add(2, 1) == 3
-    assert add(0, 0) == 0
-    assert add(-1, 2) == 1
-    assert add(-2, 1) == -1
-    assert add(0, 15) == 15
+@pytest.mark.parametrize(
+    "a,b,expected",
+    [(1, 2, 3), (2, 1, 3), (0, 0, 0), (-1, 2, 1), (-2, 1, -1), (0, 15, 15)],
+)
+def test_add(a, b, expected):
+    assert add(a, b) == expected
 
 
 class TestAddList:
-    def test_add_lists(self):
-        assert add_lists([3, 1], [1, 5]) == [4, 6]
-        assert add_lists([], []) == []
-        assert add_lists([1], [1]) == [2]
+    @pytest.mark.parametrize(
+        "a,b,expected", [([3, 1], [1, 5], [4, 6]), ([], [], []), ([1], [1], [2])]
+    )
+    def test_add_lists(self, a, b, expected):
+        assert add_lists(a, b) == expected
 
     def test_add_lists_fails(self):
         with pytest.raises(ValueError):

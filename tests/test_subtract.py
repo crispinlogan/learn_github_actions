@@ -1,10 +1,11 @@
+import pytest
+
 from learn_github_actions.subtract import subtract
 
 
-def test_subtract():
-    assert subtract(1, 2) == -1
-    assert subtract(2, 1) == 1
-    assert subtract(0, 1) == -1
-    assert subtract(-1, 2) == -3
-    assert subtract(-2, 1) == -3
-    assert subtract(0, 15) == -15
+@pytest.mark.parametrize(
+    "a,b,expected",
+    [(1, 2, -1), (2, 1, 1), (0, 1, -1), (-1, 2, -3), (-2, 1, -3), (0, 15, -15)],
+)
+def test_subtract(a, b, expected):
+    assert subtract(a, b) == expected
