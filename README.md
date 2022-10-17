@@ -1,3 +1,9 @@
+![Tests](https://github.com/crispinlogan/learn_github_actions/actions/workflows/tests.yml/badge.svg)
+![Pre-commit run (black, flake8, isort)](https://github.com/crispinlogan/learn_github_actions/actions/workflows/run_pre_commit.yaml/badge.svg)
+![Slack notifs for new release](https://github.com/crispinlogan/learn_github_actions/actions/workflows/slack_notif_on_new_version_release.yml/badge.svg)
+<!-- ![Version release on PR comment](https://github.com/crispinlogan/learn_github_actions/actions/workflows/release_new_version.yml/badge.svg) -->
+
+
 learn_github_actions
 --------------------
 
